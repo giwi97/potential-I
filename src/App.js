@@ -6,15 +6,15 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 
 class App extends Component {
-  state={isSignedIn:false}
+  state = { isSignedIn : false }
   render() {
   return (
     <div className="App">
-      {this.state.isSignedIn ?
-        <text>Signed in!</text>
-        :
-        <text>Not signed in</text>
-      }
+      {this.state.isSignedIn ? (
+        <div>Signed in!</div>
+      ) : (
+        <div>Not signed in</div>
+      )}
     </div>
   );
   }
