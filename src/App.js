@@ -40,7 +40,10 @@ class App extends Component {
       {this.state.isSignedIn ? (
         <div>Signed in!</div>
       ) : (
-        <div>Not signed in</div>
+        <StyledFirebaseAuth
+          uiConfig = {this.uiConfig}
+          firebaseAuth = {firebase.auth()}
+        />
       )}
     </div>
 
