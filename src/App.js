@@ -7,8 +7,24 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 class App extends Component {
   state = { isSignedIn : false }
+  uiConfig = {
+
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+
+      signInSuccess: () => false
+
+    }
+
+  }
   render() {
   return (
+
     <div className="App">
       {this.state.isSignedIn ? (
         <div>Signed in!</div>
@@ -16,6 +32,7 @@ class App extends Component {
         <div>Not signed in</div>
       )}
     </div>
+
   );
   }
 }
