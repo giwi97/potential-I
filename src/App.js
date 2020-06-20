@@ -6,8 +6,10 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 
 firebase.initializeApp({
+
   apiKey: "AIzaSyDDgIwSGrwpmHF_RPupSPKtbhgtb289cY8",
   authDomain: "task-planner-b7636.firebaseapp.com"
+
 })
 
 class App extends Component {
@@ -43,7 +45,10 @@ class App extends Component {
 
     <div className="App">
       {this.state.isSignedIn ? (
+        <span>
         <div>Signed in!</div>
+        <button onClick = {() => firebase.auth().signOut()}>Sign out</button>
+        </span>
       ) : (
         <StyledFirebaseAuth
           uiConfig = {this.uiConfig}
