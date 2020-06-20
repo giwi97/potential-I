@@ -5,6 +5,11 @@ import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 
+firebase.initializeApp({
+  apiKey: "AIzaSyDDgIwSGrwpmHF_RPupSPKtbhgtb289cY8",
+  authDomain: "task-planner-b7636.firebaseapp.com"
+})
+
 class App extends Component {
   state = { isSignedIn : false }
   uiConfig = {
@@ -24,11 +29,6 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-
-    firebase.initializeApp({
-      apiKey: "AIzaSyDDgIwSGrwpmHF_RPupSPKtbhgtb289cY8",
-      authDomain: "task-planner-b7636.firebaseapp.com"
-    })
 
     firebase.auth().onAuthStateChanged(user => {
 
