@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Navbar, Nav, Button, Col, Image } from "react-bootstrap";
+import { Navbar, Nav, Button, Col, Image, Dropdown } from "react-bootstrap";
 
 firebase.initializeApp({
   apiKey: "AIzaSyDDgIwSGrwpmHF_RPupSPKtbhgtb289cY8",
@@ -41,13 +41,21 @@ class App extends Component {
 
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                  <Button
-                    variant="outline-info"
-                    size="sm"
-                    onClick={() => firebase.auth().signOut()}
-                  >
-                    {firebase.auth().currentUser?.displayName}
-                  </Button>
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      variant="outline-info"
+                      id="dropdown-basic"
+                      size="sm"
+                    >
+                      {firebase.auth().currentUser?.displayName}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => firebase.auth().signOut()}>
+                        Sign-out
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Navbar.Text>
 
                 <img
