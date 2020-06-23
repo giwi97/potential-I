@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, Button, Col, Image } from "react-bootstrap";
 
 firebase.initializeApp({
   apiKey: "AIzaSyDDgIwSGrwpmHF_RPupSPKtbhgtb289cY8",
@@ -41,19 +41,22 @@ class App extends Component {
 
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                  Signed in as: <a href="#login">Mark Otto </a>
+                  <Button
+                    variant="outline-info"
+                    size="sm"
+                    onClick={() => firebase.auth().signOut()}
+                  >
+                    {firebase.auth().currentUser?.displayName}
+                  </Button>
                 </Navbar.Text>
-                <Button variant="outline-info">Sign-out</Button>
+
+                <img
+                  alt="Profile Image"
+                  src={firebase.auth().currentUser.photoURL}
+                  class="propic"
+                />
               </Navbar.Collapse>
             </Navbar>
-
-            <div>Signed in!</div>
-            <button onClick={() => firebase.auth().signOut()}>Sign out</button>
-            <h1>Welcome {firebase.auth().currentUser?.displayName}</h1>
-            <img
-              alt="Profile Image"
-              src={firebase.auth().currentUser.photoURL}
-            />
           </span>
         ) : (
           <StyledFirebaseAuth
