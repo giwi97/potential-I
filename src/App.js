@@ -59,10 +59,17 @@ class App extends Component {
             </Navbar>
           </span>
         ) : (
-          <StyledFirebaseAuth
-            uiConfig={this.uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
+          <div>
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand href="#home">Task-Planner</Navbar.Brand>
+            </Navbar>
+
+            <StyledFirebaseAuth
+              uiConfig={this.uiConfig}
+              firebaseAuth={firebase.auth()}
+              class="login-box"
+            />
+          </div>
         )}
       </div>
     );
