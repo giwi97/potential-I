@@ -72,11 +72,13 @@ class App extends Component {
               <Navbar.Brand href="#home">Task-Planner</Navbar.Brand>
             </Navbar>
 
-            <StyledFirebaseAuth
-              uiConfig={this.uiConfig}
-              firebaseAuth={firebase.auth()}
-              class="login-box"
-            />
+            <div class="login-box">
+              
+              <StyledFirebaseAuth
+                uiConfig={this.uiConfig}
+                firebaseAuth={firebase.auth()}
+              />
+            </div>
           </div>
         )}
       </div>
