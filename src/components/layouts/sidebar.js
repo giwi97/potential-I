@@ -28,5 +28,13 @@ export const Sidebar = () => (
         <span>Upcoming</span>
       </li>
     </ul>
+
+    <div className="sidebar__middle">
+        <span>
+            <FaChevronDown />
+        </span>
+        <h2>Tasks</h2>
+    </div>
+    <ul className="sidebar__tasks">All tasks</ul>
   </div>
 );
