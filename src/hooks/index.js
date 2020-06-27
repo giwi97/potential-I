@@ -4,22 +4,78 @@ import { collatedTasksExist } from '../helpers'
 import moment from 'moment';
 
 
-export const useTask = (selectedProject) => {
+export const useTask = selectedProject => {
   const [tasks, setTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
 
   useEffect(() => {
-    let unsub = firebase
+    let unsubscribe = firebase
       .firestore()
-      .collection("tasks")
-      .where("userId", "==", "1111");
+      .collection('tasks')
+      .where('userId', '==', '1111');
 
-    unsub =
+      unsubscribe =
       selectedProject && !collatedTasksExist(selectedProject)
-        ? (unsub = unsub.where("projetId", "==", selectedProject))
-        : selectedProject == "TODAY"
-        ? (unsub = unsub.where("date", "==", moment().format("DD/MM/YYYY")))
-        : selectedProject === "ALERTS" || selectedProject === 0
-        ? (unsub = unsub.where("date", "==", ""))
-        : unsub;
+        ? (unsubscribe = unsubscribe.where('projcetId', '==', selectedProject))
+        : selectedProject == 'TODAY'
+        ? (unsubscribe = unsubscribe.where('date', '==', moment().format('DD/MM/YYYY')))
+        : selectedProject === 'ALERTS' || selectedProject === 0
+        ? (unsubscribe = unsubscribe.where('date', '==', ''))
+        : unsubscribe;
+
+        unsubscribe = unsubscribe.onSnapshot(snapshot => {
+
+          const newTasks = snapshot.docs.map(task => ({
+            id:task.id,
+            ...task.data(),
+
+          }));
+
+          setTasks(
+            selectedProject === 'UPCOMING'
+            ? newTasks.filter(
+              task => moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 && task.archived !== true
+            )
+            :newTasks.filter(task => task.archived !== true)
+          );
+
+          setArchivedTasks(newTasks.filter(task => task.archived !== false));
+        });
+
+        return () => unsubscribe();
+
   }, [selectedProject]);
+
+  return { tasks, archivedTasks };
+};
+
+// const selectedProject = 1
+// const { tasks, archivedTasks } = useTasks(selectedProject)
+
+export const useProjects = () => {
+  
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    firebase.firestore().collection('projects')
+    .where('userId', '==', '1111')
+    .orderBy('projectId')
+    .get()
+    .then(snapshot => {
+      const allProjects = snapshot.docs.map(project => ({
+        ...project.data(),
+        docId: project.id,
+      }));
+
+      if(JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+
+        setProjects(allProjects);
+
+      }
+
+    });
+  }, [projects]);
+
+  return {projects, setProjects}
+
 };
