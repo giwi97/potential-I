@@ -14,7 +14,8 @@
     "react-firebaseui": "^4.1.0",
     "react-icons": "^3.10.0",
     "react-scripts": "3.4.1",
-    "node-sass": "4.14.1"
+    "node-sass": "4.14.1",
+    "moment": "2.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
