@@ -1,16 +1,27 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Header } from './components/layouts/header'
-import { Content } from "./components/layouts/content";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Header } from './components/layout/Header';
+import { Content } from './components/layout/Content';
+import { ProjectsProvider, SelectedProjectProvider } from './context';
 
+export const App = ({ darkModeDefault = false }) => {
+  const [darkMode, setDarkMode] = useState(darkModeDefault);
 
+  return (
+    <SelectedProjectProvider>
+      <ProjectsProvider>
+        <main
+          data-testid="application"
+          className={darkMode ? 'darkmode' : undefined}
+        >
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Content />
+        </main>
+      </ProjectsProvider>
+    </SelectedProjectProvider>
+  );
+};
 
-export const App = () => (
-
-    <div className = "App">
-      <Header />
-      <Content />
-    </div>
-
-);
+App.propTypes = {
+  darkModeDefault: PropTypes.bool,
+};
