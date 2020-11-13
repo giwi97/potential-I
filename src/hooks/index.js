@@ -60,6 +60,7 @@ export const useProjects = () => {
       .collection('projects')
       .where('userId', '==', 'jlIFXIwyAL3tzHMtzRbw')
       .orderBy('projectId')
+      
       .get()
       .then(snapshot => {
         const allProjects = snapshot.docs.map(project => ({
